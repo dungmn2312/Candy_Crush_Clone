@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 
 public class CandyController : MonoBehaviour, IGetClick
 {
-    public static event Action<int> OnNotifyScore;
+    //public static event Action<int> OnNotifyScore;
 
     private Vector3 _targetScale = new Vector3(1.2f, 1.2f, 0);
     private Vector3 _rotateZ = new Vector3(0, 0, 360);
