@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,5 +29,12 @@ public class EffectManager : MonoBehaviour
         _explosionEffect = SimplePool.Spawn(_explosionEffectPrefab);
         _explosionEffect.transform.position = pos;
         _explosionEffect.GetComponent<ParticleSystem>().Play();
+        DespawnEffect();
+    }
+
+    private async void DespawnEffect()
+    {
+        await UniTask.WaitForSeconds(1f);
+        SimplePool.Despawn(_explosionEffect);
     }
 }
