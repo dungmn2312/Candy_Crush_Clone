@@ -5,7 +5,8 @@ using UnityEngine;
 public class BlockManager : MonoBehaviour
 {
     public static BlockManager Instance;
-    [SerializeField] private GameObject _blockPrefab;
+    [SerializeField] private GameObject blockPrefab;
+    [SerializeField] private Transform candyTank;
 
     private void Awake()
     {
@@ -15,6 +16,6 @@ public class BlockManager : MonoBehaviour
 
     public GameObject GetBlock()
     {
-        return Instantiate(_blockPrefab);
+        return Instantiate(blockPrefab, candyTank);
     }
 }

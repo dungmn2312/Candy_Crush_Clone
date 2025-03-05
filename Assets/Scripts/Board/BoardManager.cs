@@ -9,12 +9,16 @@ using static UnityEditor.Experimental.GraphView.GraphView;
 public class BoardManager : MonoBehaviour
 {
     public static BoardManager Instance;
+
     public static event Action<Candy> OnCandyCheck;
     public static event Action<bool> OnClickAble;
+    public static event Action OnDoneDrop;
 
     private Board _board;
     internal int[,] _boardMatrix;
     internal Candy[,] _candyMatrix;
+
+    private int[][] _matrixData;
 
     private GameObject[] _candyObjects;
 
@@ -25,14 +29,15 @@ public class BoardManager : MonoBehaviour
     private int _startX = 0, _startY = 0;
     private float _maxTime = -1f;
 
+    public bool isAuto;
+
     private void Awake()
     {
         Instance = this;
 
         _board = GetComponent<Board>();
 
-        _boardMatrix = _board.GetMatrix();
-        _candyMatrix = new Candy[_board.Width, _board.Height];
+        //_candyMatrix = new Candy[_board.Width, _board.Height];
 
         StartCoroutine(WaitForPrefabsReady());
     }
@@ -49,35 +54,63 @@ public class BoardManager : MonoBehaviour
 
     private IEnumerator WaitForPrefabsReady()
     {
-        while (CandyManager.Instance == null || BlockManager.Instance == null)
+        while (CandyManager.Instance == null || BlockManager.Instance == null || LoadData.Instance == null)
         {
             yield return null;
         }
+
         _candyObjects = CandyManager.Instance.candyPrefabs;
 
+        SetUpMatrix();
         InitializeBoard();
+    }
+
+    private void SetUpMatrix()
+    {
+        _boardMatrix = new int[_board.Width, _board.Height * 2];
+        if (isAuto) _candyMatrix = new Candy[_boardMatrix.GetLength(0), _boardMatrix.GetLength(1)];
+        else
+        {
+            _matrixData = LoadData.Instance.LoadCandyMatrixData();
+            _candyMatrix = new Candy[_boardMatrix.GetLength(0), _matrixData.Length];
+        }
     }
 
     private void InitializeBoard()
     {
-        for (int x = 0; x < _boardMatrix.GetLength(0); x++)
+        for (int x = 0; x < _candyMatrix.GetLength(0); x++)
         {
-            for (int y = 0; y < _boardMatrix.GetLength(1); y++)
+            for (int y = 0; y < _candyMatrix.GetLength(1); y++)
             {
                 tempVector3.x = x; tempVector3.y = y;
+
+                Candy candy = null;
+                if (isAuto) candy = CandyManager.Instance.GetCandyFromPool(_candyObjects[UnityEngine.Random.Range(0, 5)], tempVector3).GetComponent<Candy>();
+                else candy = GetCandy(_matrixData[_candyMatrix.GetLength(1) - y - 1][x]);
+
+                _candyMatrix[x, y] = candy;
+                //candy.gameObject.SetActive(false);
+
+                tempVector2.x = x; tempVector2.y = y;
+                candy.Pos = tempVector2;
 
                 if (y < _boardMatrix.GetLength(1) / 2)
                 {
                     GameObject block = BlockManager.Instance.GetBlock();
                     block.transform.position = tempVector3;
                 }
+                //else if (y >= _boardMatrix.GetLength(1))
+                //{
+                //    SimplePool.Despawn(candy.gameObject);
+                //}
 
-                Candy candy = CandyManager.Instance.GetCandyFromPool(_candyObjects[UnityEngine.Random.Range(0, 5)], tempVector3).GetComponent<Candy>();
-                _candyMatrix[x, y] = candy;
-                tempVector2.x = x; tempVector2.y = y;
-                candy.Pos = tempVector2;
             }
         }
+    }
+
+    private Candy GetCandy(int candyID)
+    {
+        return CandyManager.Instance.GetCandyFromPool(_candyObjects[candyID], tempVector3).GetComponent<Candy>();
     }
 
     private int FindHighestY()
@@ -96,15 +129,15 @@ public class BoardManager : MonoBehaviour
     public async void DropCandies()
     {
         float dropTime;
-        await UniTask.WaitForSeconds(0.5f);
         OnClickAble?.Invoke(false);
-        for (int x = 0; x < _boardMatrix.GetLength(0); x++)
+        await UniTask.WaitForSeconds(0.5f);
+        for (int x = 0; x < _candyMatrix.GetLength(0); x++)
         {
-            for (int y = 0; y < _boardMatrix.GetLength(1); y++)
+            for (int y = 0; y < _candyMatrix.GetLength(1); y++)
             {
                 if (_candyMatrix[x, y] == null)
                 {
-                    for (int k = y + 1; k < _boardMatrix.GetLength(1); k++)
+                    for (int k = y + 1; k < _candyMatrix.GetLength(1); k++)
                     {
                         if (_candyMatrix[x, k] != null)
                         {
@@ -133,16 +166,27 @@ public class BoardManager : MonoBehaviour
     {
         for (int x = 0; x < _boardMatrix.GetLength(0); x++)
         {
-            for (int y = 0; y < _boardMatrix.GetLength(1); y++)
+            for (int y = _boardMatrix.GetLength(1)/2; y < _boardMatrix.GetLength(1); y++)
             {
-                if (_candyMatrix[x, y] == null)
+                if (isAuto)
                 {
-                    tempVector3.x = x; tempVector3.y = y;
-                    Candy candy = CandyManager.Instance.GetCandyFromPool(_candyObjects[UnityEngine.Random.Range(0, 5)], tempVector3).GetComponent<Candy>();
-                    _candyMatrix[x, y] = candy;
-                    tempVector2.x = x; tempVector2.y = y;
-                    candy.Pos = tempVector2;
+                    if (_candyMatrix[x, y] == null)
+                    {
+                        tempVector3.x = x; tempVector3.y = y;
+                        Candy candy = CandyManager.Instance.GetCandyFromPool(_candyObjects[UnityEngine.Random.Range(0, 5)], tempVector3).GetComponent<Candy>();
+                        _candyMatrix[x, y] = candy;
+                        tempVector2.x = x; tempVector2.y = y;
+                        candy.Pos = tempVector2;
+                    }
                 }
+                //else
+                //{
+                //    if (!_candyMatrix[x, y].gameObject.activeSelf)
+                //    {
+                //        Debug.Log("ok");
+                //        SimplePool.Spawn(_candyMatrix[x, y]);
+                //    }
+                //}
             }
         }
 
@@ -187,13 +231,14 @@ public class BoardManager : MonoBehaviour
 
     private void SetStartXY()
     {
-        if (_startX == _candyMatrix.GetLength(0) - 1 && _startY == _candyMatrix.GetLength(1) / 2 - 1)
+        if (_startX == _boardMatrix.GetLength(0) - 1 && _startY == _boardMatrix.GetLength(1) / 2 - 1)
         {
             _startX = 0; _startY = 0;
             OnClickAble?.Invoke(true);
+            OnDoneDrop?.Invoke();
             return;
         }
-        if (_startY == _candyMatrix.GetLength(1) / 2 - 1)
+        if (_startY == _boardMatrix.GetLength(1) / 2 - 1)
         {
             _startY = 0; ++_startX;
         }

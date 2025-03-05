@@ -68,6 +68,7 @@ public class StripCandy : Candy
 
     public override void AfterDestroy()
     {
+        candyController.InvokeCandiesAfterDestroy();
         candyController.ClearDestroyedList();
         BoardManager.Instance.DropCandies();
     }
@@ -76,14 +77,14 @@ public class StripCandy : Candy
     {
         if (ability == CandyAbility.StripHorizontal)
         {
-            for (int i = 0; i < BoardManager.Instance._candyMatrix.GetLength(0); i++)
+            for (int i = 0; i < BoardManager.Instance._boardMatrix.GetLength(0); i++)
             {
                 AddToDestroyedCandies(i, Pos.y);
             }
         }
         else
         {
-            for (int i = 0; i < BoardManager.Instance._candyMatrix.GetLength(1) / 2; i++)
+            for (int i = 0; i < BoardManager.Instance._boardMatrix.GetLength(1) / 2; i++)
             {
                 AddToDestroyedCandies(Pos.x, i);
             }

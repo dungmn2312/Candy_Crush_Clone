@@ -42,7 +42,7 @@ public class RainbowCandy : Candy
             if (type == CandyType.None)
             {
                 candyCheck.Add(this);
-                transform.DOKill(true);
+                transform.GetChild(0).DOKill(true);
                 candyController.ScaleCandy(this);
             }
             else
@@ -55,8 +55,8 @@ public class RainbowCandy : Candy
             if (candyCheck[0] == this)
             {
                 candyCheck.Remove(this);
-                transform.DOKill(true);
-                candyController.ScaleCandy(this);
+                transform.GetChild(0).DOKill(true);
+                candyController.RotateCandy(this);
             }
             else
             {
@@ -108,6 +108,7 @@ public class RainbowCandy : Candy
 
     public override void AfterDestroy()
     {
+        candyController.InvokeCandiesAfterDestroy();
         candyController.ClearDestroyedList();
         BoardManager.Instance.DropCandies();
 
@@ -118,9 +119,9 @@ public class RainbowCandy : Candy
     {
         List<Candy> candies = CandyManager.Instance.rainBowCheck;
 
-        for (int x = 0; x < BoardManager.Instance._candyMatrix.GetLength(0); x++)
+        for (int x = 0; x < BoardManager.Instance._boardMatrix.GetLength(0); x++)
         {
-            for (int y = 0; y < BoardManager.Instance._candyMatrix.GetLength(1) / 2; y++)
+            for (int y = 0; y < BoardManager.Instance._boardMatrix.GetLength(1) / 2; y++)
             {
                 if (BoardManager.Instance.IsNullCell(x, y)) continue;
 

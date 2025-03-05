@@ -7,7 +7,10 @@ using UnityEngine.UIElements;
 
 public class CandyController : MonoBehaviour, IGetClick
 {
-    //public static event Action<int> OnNotifyScore;
+    public static event Action<List<Candy>> OnNotifyScore;
+    public static event Action<List<Candy>> OnNotifyTargetCandies;
+    public static event Action<bool> OnNotifyConfirmClick;
+    public static event Action<bool> OnNotifyClick;
 
     private Vector3 _targetScale = new Vector3(1.2f, 1.2f, 0);
     private Vector3 _rotateZ = new Vector3(0, 0, 360);
@@ -29,6 +32,7 @@ public class CandyController : MonoBehaviour, IGetClick
     {
         if (candy == gameObject.GetComponent<Candy>())
         {
+            OnNotifyClick?.Invoke(true);
             candy.isDestroyMain = true;
             candy.BeforeDestroy();
         }
@@ -51,8 +55,8 @@ public class CandyController : MonoBehaviour, IGetClick
 
     public bool IsValidPosition(int x, int y)
     {
-        return x >= 0 && x < BoardManager.Instance._candyMatrix.GetLength(0) &&
-               y >= 0 && y < BoardManager.Instance._candyMatrix.GetLength(1) / 2;
+        return x >= 0 && x < BoardManager.Instance._boardMatrix.GetLength(0) &&
+               y >= 0 && y < BoardManager.Instance._boardMatrix.GetLength(1) / 2;
     }
 
     public void AddToDestroyedCandies(Candy candy)
@@ -95,5 +99,36 @@ public class CandyController : MonoBehaviour, IGetClick
                     .SetEase(Ease.InOutSine);
     }
 
+    private int CaculateScore(List<Candy> candies)
+    {
+        int score = 0;
+        foreach (Candy candy in candies)
+        {
+            score += candy.score;
+        }
 
+        return score;
+    }
+
+    private void InvokeScore()
+    {
+        OnNotifyScore?.Invoke(destroyedCandies);
+    }
+
+    private void InvokeTargetCandies()
+    {
+        OnNotifyTargetCandies?.Invoke(destroyedCandies);
+    }
+
+    public void InvokeCandiesAfterDestroy()
+    {
+        InvokeConfirmClick();
+        InvokeScore();
+        InvokeTargetCandies();
+    }
+
+    private void InvokeConfirmClick()
+    {
+        OnNotifyConfirmClick?.Invoke(true);
+    }
 }

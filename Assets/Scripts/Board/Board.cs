@@ -11,7 +11,7 @@ public class Board : MonoBehaviour
     public Board()
     {
         _width = 7;
-        _height = 16;
+        _height = 8;
         _boardMatrix = new int[_width, _height];
     }
 

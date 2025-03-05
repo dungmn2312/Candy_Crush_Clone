@@ -9,12 +9,14 @@ public class CandyManager : MonoBehaviour
 {
     public static CandyManager Instance;
 
+    [SerializeField] private Transform candyTank;
+
     internal GameObject[] candyPrefabs;
     internal GameObject[] candyStripPrefabs;
     internal GameObject[] candyBombPrefabs;
     internal GameObject[] candyRainbowPrefabs;
 
-    private int _candyPoolCount = 30;
+    private int _candyPoolCount = 50;
     private int _specialCandyPoolCount = 5;
 
     internal List<Candy> rainBowCheck = new List<Candy>();
@@ -39,22 +41,22 @@ public class CandyManager : MonoBehaviour
     {
         for (int i = 0; i < candyPrefabs.Length; i++)
         {
-            SimplePool.PoolPreLoad(candyPrefabs[i], _candyPoolCount);
+            SimplePool.PoolPreLoad(candyPrefabs[i], _candyPoolCount, candyTank);
         }
 
         for (int i = 0; i < candyStripPrefabs.Length; i++)
         {
-            SimplePool.PoolPreLoad(candyStripPrefabs[i], _specialCandyPoolCount);
+            SimplePool.PoolPreLoad(candyStripPrefabs[i], _specialCandyPoolCount, candyTank);
         }
 
         for (int i = 0; i < candyBombPrefabs.Length; i++)
         {
-            SimplePool.PoolPreLoad(candyBombPrefabs[i], _specialCandyPoolCount);
+            SimplePool.PoolPreLoad(candyBombPrefabs[i], _specialCandyPoolCount, candyTank);
         }
 
         for (int i = 0; i < candyRainbowPrefabs.Length; i++)
         {
-            SimplePool.PoolPreLoad(candyRainbowPrefabs[i], _specialCandyPoolCount);
+            SimplePool.PoolPreLoad(candyRainbowPrefabs[i], _specialCandyPoolCount, candyTank);
         }
     }
 

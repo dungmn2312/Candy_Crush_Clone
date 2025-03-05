@@ -69,6 +69,7 @@ public class BombCandy : Candy
 
     public override void AfterDestroy()
     {
+        candyController.InvokeCandiesAfterDestroy();
         candyController.ClearDestroyedList();
         BoardManager.Instance.DropCandies();
     }

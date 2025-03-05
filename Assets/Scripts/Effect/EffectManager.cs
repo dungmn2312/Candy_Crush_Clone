@@ -5,13 +5,13 @@ using UnityEngine;
 
 public class EffectManager : MonoBehaviour
 {
-    [SerializeField] private GameObject _explosionEffectPrefab;
+    [SerializeField] private GameObject explosionEffectPrefab;
     private GameObject _explosionEffect;
     private int _explosionEffectCount = 5;
 
     private void Start()
     {
-        SimplePool.PoolPreLoad(_explosionEffectPrefab, _explosionEffectCount);
+        SimplePool.PoolPreLoad(explosionEffectPrefab, _explosionEffectCount);
     }
 
     private void OnEnable()
@@ -26,7 +26,7 @@ public class EffectManager : MonoBehaviour
 
     private void PlayExplosionEffect(Vector3 pos)
     {
-        _explosionEffect = SimplePool.Spawn(_explosionEffectPrefab);
+        _explosionEffect = SimplePool.Spawn(explosionEffectPrefab);
         _explosionEffect.transform.position = pos;
         _explosionEffect.GetComponent<ParticleSystem>().Play();
         DespawnEffect();

@@ -103,7 +103,8 @@ public class NormalCandy : Candy
         }
 
         CandyManager.Instance.GenerateSpecialCandy(this, candyController.destroyedCandies.Count);
-       
+        
+        candyController.InvokeCandiesAfterDestroy();
         candyController.ClearDestroyedList();
         BoardManager.Instance.DropCandies();
     }

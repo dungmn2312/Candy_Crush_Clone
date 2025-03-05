@@ -11,11 +11,13 @@ public class ClickDetector : MonoBehaviour
     private void OnEnable()
     {
         BoardManager.OnClickAble += SetClick;
+        WinLoseManager.OnNotifyEndGame += DisableClick;
     }
 
     private void OnDisable()
     {
         BoardManager.OnClickAble -= SetClick;
+        WinLoseManager.OnNotifyEndGame -= DisableClick;
     }
 
     private void Update()
@@ -46,5 +48,10 @@ public class ClickDetector : MonoBehaviour
     private void SetClick(bool clickAble)
     {
         _clickAble = clickAble;
+    }
+
+    private void DisableClick(bool value)
+    {
+        _clickAble = false;
     }
 }
