@@ -1,9 +1,13 @@
+﻿using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 public class CandyManager : MonoBehaviour
 {
@@ -11,50 +15,86 @@ public class CandyManager : MonoBehaviour
 
     [SerializeField] private Transform candyTank;
 
-    internal GameObject[] candyPrefabs;
-    internal GameObject[] candyStripPrefabs;
-    internal GameObject[] candyBombPrefabs;
-    internal GameObject[] candyRainbowPrefabs;
+    //internal GameObject[] candyPrefabs;
+    //internal GameObject[] candyStripPrefabs;
+    //internal GameObject[] candyBombPrefabs;
+    //internal GameObject[] candyRainbowPrefabs;
+
+    internal List<GameObject> candyPrefabs = new List<GameObject>();
+    internal List<GameObject> candyStripPrefabs = new List<GameObject>();
+    internal List<GameObject> candyBombPrefabs = new List<GameObject>();
+    internal List<GameObject> candyRainbowPrefabs = new List<GameObject>();
 
     private int _candyPoolCount = 50;
     private int _specialCandyPoolCount = 5;
 
     internal List<Candy> rainBowCheck = new List<Candy>();
 
-    private void Awake()
+    private async void Awake()
     {
-        LoadCandyPrefabs();
+        await LoadCandyPrefabs();
 
         Instance = this;
     }
 
-    private void LoadCandyPrefabs()
+    private async UniTask LoadCandyPrefabs()
     {
-        candyPrefabs = Resources.LoadAll<GameObject>("Candy Item/Item");
-        candyStripPrefabs = Resources.LoadAll<GameObject>("Candy Item/Special Item 4");
-        candyBombPrefabs = Resources.LoadAll<GameObject>("Candy Item/Special Item 5");
-        candyRainbowPrefabs = Resources.LoadAll<GameObject>("Candy Item/Special Item 6");
+        var normalTask = LoadCandyAsync("normalCandy", candyPrefabs);
+        var stripTask = LoadCandyAsync("stripCandy", candyStripPrefabs);
+        var bombTask = LoadCandyAsync("bombCandy", candyBombPrefabs);
+        var rainbowTask = LoadCandyAsync("rainbowCandy", candyRainbowPrefabs);
 
+        await UniTask.WhenAll(
+            normalTask,
+            stripTask,
+            bombTask,
+            rainbowTask
+        );
+        for (int i = 0; i <  candyPrefabs.Count; i++)
+        {
+            Debug.Log(candyPrefabs[i].name + " " + i);
+        }
+        //Debug.Log("All Candy Prefabs Loaded!");
         GenerateCandyPool();
     }
+
+    private async UniTask LoadCandyAsync(string label, List<GameObject> targetList)
+    {
+        var handle = Addressables.LoadAssetsAsync<GameObject>(label, obj =>
+        {
+            targetList.Add(obj);
+        });
+
+        await handle.ToUniTask();
+
+        //if (handle.Status == AsyncOperationStatus.Succeeded)
+        //{
+        //    Debug.Log($"Loaded {label}: {targetList.Count} items.");
+        //}
+        //else
+        //{
+        //    Debug.LogError($"Failed to load {label}!");
+        //}
+    }
+
     private void GenerateCandyPool()
     {
-        for (int i = 0; i < candyPrefabs.Length; i++)
+        for (int i = 0; i < candyPrefabs.Count; i++)
         {
             SimplePool.PoolPreLoad(candyPrefabs[i], _candyPoolCount, candyTank);
         }
 
-        for (int i = 0; i < candyStripPrefabs.Length; i++)
+        for (int i = 0; i < candyStripPrefabs.Count; i++)
         {
             SimplePool.PoolPreLoad(candyStripPrefabs[i], _specialCandyPoolCount, candyTank);
         }
 
-        for (int i = 0; i < candyBombPrefabs.Length; i++)
+        for (int i = 0; i < candyBombPrefabs.Count; i++)
         {
             SimplePool.PoolPreLoad(candyBombPrefabs[i], _specialCandyPoolCount, candyTank);
         }
 
-        for (int i = 0; i < candyRainbowPrefabs.Length; i++)
+        for (int i = 0; i < candyRainbowPrefabs.Count; i++)
         {
             SimplePool.PoolPreLoad(candyRainbowPrefabs[i], _specialCandyPoolCount, candyTank);
         }
@@ -83,10 +123,10 @@ public class CandyManager : MonoBehaviour
         }
     }
 
-    private void GetSpecialCandyFromPool(Candy candy, GameObject[] specialCandies, int offset)
+    private void GetSpecialCandyFromPool(Candy candy, List<GameObject> specialCandies, int offset)
     {
         int index = 0;
-        for (int i = 0; i < specialCandies.Length; i++)
+        for (int i = 0; i < specialCandies.Count; i++)
         {
             if (candy.type == specialCandies[i].GetComponent<Candy>().type)
             {

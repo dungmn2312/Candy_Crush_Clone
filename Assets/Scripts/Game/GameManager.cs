@@ -8,9 +8,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    internal string mainMenuScene = "MainMenu";
-    internal string levelScene_1 = "Level 1";
-    internal string mapScene = "Map";
+    internal string mainMenuScene = "Assets/Scenes/MainMenu.unity";
 
     private void Awake()
     {
@@ -18,22 +16,29 @@ public class GameManager : MonoBehaviour
         else Destroy(gameObject);
 
         DontDestroyOnLoad(gameObject);
+
+        AddressableController.Instance.Init();
     }
 
     private void Start()
     {
-        // Test load wait
         WaitForLoadMainMenu();
     }
 
     private async void WaitForLoadMainMenu()
     {
-        await UniTask.WaitForSeconds(3f);
+        await UniTask.WaitUntil(() => AddressableController.Instance.isInited == true);
+
         LoadScene(mainMenuScene);
     }
 
     public void LoadScene(string sceneName)
     {
-        SceneManager.LoadScene(sceneName);
+        AddressableController.Instance.LoadSceneByName(sceneName, true);
+    }
+
+    public void LoadAsset(string assetName)
+    {
+
     }
 }

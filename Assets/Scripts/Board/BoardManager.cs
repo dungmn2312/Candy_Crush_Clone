@@ -20,7 +20,7 @@ public class BoardManager : MonoBehaviour
 
     private int[][] _matrixData;
 
-    private GameObject[] _candyObjects;
+    private List<GameObject> _candyObjects;
 
     private Vector3 tempVector3 = Vector3.zero;
     private Vector2Int tempVector2 = Vector2Int.zero;

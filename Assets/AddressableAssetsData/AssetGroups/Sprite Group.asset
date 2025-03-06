@@ -1,0 +1,165 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Sprite Group
+  m_EditorClassIdentifier: 
+  m_GroupName: Sprite Group
+  m_Data:
+    m_SerializedData: []
+  m_GUID: ca7257521a1887543bc2577cdb5c05dc
+  m_SerializeEntries:
+  - m_GUID: 0bccd265cc3dc8e4abc1bf834c57591a
+    m_Address: Candy Item/Sprite/item_01_stripes_vert 1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0cdc78845e5d2f14b9978031f94a9cbb
+    m_Address: Candy Item/Sprite/candy10_choco 1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1cd726db10f8d144ea78cf5381eb1bfd
+    m_Address: Candy Item/Sprite/block 1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 23466c195ade22f4f91476a74837b0fd
+    m_Address: Candy Item/Sprite/item_05_stripes_vert 1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3e37a7408f65eac47805b1775296f4d7
+    m_Address: Candy Item/Sprite/item_03_stripes_vert 1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 46004a399ac87fc4ea44ea6c77c67e85
+    m_Address: Candy Item/Sprite/leadboard 1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 50c1641b979b5924cb2187bce13f42ab
+    m_Address: Candy Item/Sprite/item_04_stripes_vert 1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 69a9d5e8e7344e9438e642f0250e720f
+    m_Address: Candy Item/Sprite/item_01_extra 1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6b46761c3cdf57741a5bdd6ce15adbb8
+    m_Address: Candy Item/Sprite/item_06_stripes_horiz 1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6c88094149d0bf040842e7bcfb1ad291
+    m_Address: Candy Item/Sprite/item_01_stripes_horiz 1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 791ea6b8a7edd244cac9feb0dcdfacf7
+    m_Address: Candy Item/Sprite/wheel
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7c15962a30d88dd48b1372c1b94b13db
+    m_Address: Candy Item/Sprite/solidBlock 1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7d836212abfd6ef47a3e8f1071cd81dc
+    m_Address: Candy Item/Sprite/star_on
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 98cb10a43e2636c408dcff55a89ed51d
+    m_Address: Candy Item/Sprite/item_03_stripes_horiz 1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9bf1493d3445f72438c1d90632afb8d4
+    m_Address: Candy Item/Sprite/Violet
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a1e522549d4bb5346ba4f85f3c22b6d6
+    m_Address: Candy Item/Sprite/Blue
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a8acdf644e44fdc43a86228210476643
+    m_Address: Candy Item/Sprite/item_04_stripes_horiz 1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: abe1174ce24261e4f81ac3f782df4a50
+    m_Address: Candy Item/Sprite/item_03_extra 1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c90e584562fcbc94cb7b6eb35d48285e
+    m_Address: Candy Item/Sprite/Yellow
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d35e3d9739a7bf742bae1d1649859a19
+    m_Address: Candy Item/Sprite/Green
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: db36710656afaa64980122f8e0de963c
+    m_Address: Candy Item/Sprite/Red
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: decc6e040095c96469efd5eed3816941
+    m_Address: Candy Item/Sprite/item_05_extra 1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e19454ccf0c98a749be2e96876fba137
+    m_Address: Candy Item/Sprite/item_05_stripes_horiz 1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e3b59e59220d0db44a1baff09f4e14aa
+    m_Address: Candy Item/Sprite/star_off
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e7ac341f853b11c46865be96a9110ca2
+    m_Address: Candy Item/Sprite/item_04_extra 1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e97e9afa92339f148920a922958dec8b
+    m_Address: Candy Item/Sprite/item_06_stripes_vert 1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fac02f29c74e0be479318a3b190da50d
+    m_Address: Candy Item/Sprite/gui_for_star_bar_01 1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fb9fe3bfd0d454b44a03d2ca66819e3d
+    m_Address: Candy Item/Sprite/item_06_extra 1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 2ea99b74bb135b3499f729585afd53d5, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 33031094ca45cd045b77bfc34746190d, type: 2}
+    - {fileID: 11400000, guid: 8c4ce1e39cf46674eb5cdbc136408721, type: 2}

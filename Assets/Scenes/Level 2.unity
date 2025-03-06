@@ -2416,7 +2416,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playButton: {fileID: 763091085}
-  sceneName: 
+  sceneName: Assets/Scenes/Map.unity
 --- !u!1 &774056808
 GameObject:
   m_ObjectHideFlags: 0
@@ -2728,7 +2728,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playButton: {fileID: 792131963}
-  sceneName: 
+  sceneName: Assets/Scenes/Level 2.unity
 --- !u!1 &801506574
 GameObject:
   m_ObjectHideFlags: 0
@@ -4496,7 +4496,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playButton: {fileID: 1309940102}
-  sceneName: 
+  sceneName: Assets/Scenes/Map.unity
 --- !u!1 &1414603404
 GameObject:
   m_ObjectHideFlags: 0

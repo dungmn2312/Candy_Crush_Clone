@@ -49,7 +49,8 @@ public class TargetManager : MonoBehaviour
         {
             //Debug.Log(targetCandiesName.Count);
             //Debug.Log(targetCandiesImage[i]);
-            targetCandiesImage[i].sprite = Resources.Load<Sprite>($"Candy Item/Sprite/{targetCandiesName[i]}");
+            //targetCandiesImage[i].sprite = Resources.Load<Sprite>($"Candy Item/Sprite/{targetCandiesName[i]}");
+            targetCandiesImage[i].sprite = AddressableController.Instance.LoadAssetByName<Sprite>($"Candy Item/Sprite/{targetCandiesName[i]}");
             SetTargetLeftUI(targetLeftTexts[i], targetCandiesCount[i].ToString());
         }
     }

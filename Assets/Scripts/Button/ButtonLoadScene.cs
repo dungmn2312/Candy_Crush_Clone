@@ -18,10 +18,6 @@ public class ButtonLoadScene : MonoBehaviour
         playButton.onClick.RemoveListener(PlayButtonClick);
     }
 
-    private void Start()
-    {
-        sceneName = gameObject.name;
-    }
 
     public void PlayButtonClick()
     {

@@ -313,7 +313,7 @@ GameObject:
   - component: {fileID: 515593277}
   - component: {fileID: 515593280}
   m_Layer: 5
-  m_Name: Map
+  m_Name: Play Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -433,7 +433,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playButton: {fileID: 515593277}
-  sceneName: 
+  sceneName: Assets/Scenes/Map.unity
 --- !u!1 &591738841
 GameObject:
   m_ObjectHideFlags: 0
