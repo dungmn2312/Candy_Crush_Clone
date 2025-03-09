@@ -78,15 +78,20 @@ public class EndGameManager : MonoBehaviour
         winLevel.gameObject.SetActive(true);
         DOScaleUI(winLevel);
 
+        bool[] starsSave = new bool[3];
+
         for (int i = 0; i < 3; i++)
         {
             if (starsCheck[i].sprite == starOn)
             {
                 stars[i].gameObject.SetActive(true);
+                starsSave[i] = true;
             }
         }
 
         scoreWinText.SetText(scoreText.text);
+
+        DataManager.Instance.WriteLevelData(starsSave, GameManager.Instance.currentLevel);
     }
 
     private void FailGame()

@@ -54,7 +54,7 @@ public class BoardManager : MonoBehaviour
 
     private IEnumerator WaitForPrefabsReady()
     {
-        while (CandyManager.Instance == null || BlockManager.Instance == null || LoadData.Instance == null)
+        while (CandyManager.Instance == null || BlockManager.Instance == null || DataManager.Instance == null)
         {
             yield return null;
         }
@@ -71,7 +71,7 @@ public class BoardManager : MonoBehaviour
         if (isAuto) _candyMatrix = new Candy[_boardMatrix.GetLength(0), _boardMatrix.GetLength(1)];
         else
         {
-            _matrixData = LoadData.Instance.LoadCandyMatrixData();
+            _matrixData = DataManager.Instance.LoadCandyMatrixData();
             _candyMatrix = new Candy[_boardMatrix.GetLength(0), _matrixData.Length];
         }
     }

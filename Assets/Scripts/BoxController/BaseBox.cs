@@ -1,195 +1,204 @@
-﻿//using System;
-//using DG.Tweening;
+﻿using System;
+using DG.Tweening;
 //using Sirenix.OdinInspector;
-//using UnityEngine;
+using UnityEngine;
 
-//public abstract class BaseBox : MonoBehaviour
-//{
-//    [SerializeField] protected RectTransform mainPanel;
+public abstract class BaseBox : MonoBehaviour
+{
+    [SerializeField] protected RectTransform mainPanel;
 
-//    [ShowIf("isPopup", true)] public RectTransform contentPanel;
+    //[ShowIf("isPopup", true)] public RectTransform contentPanel;
 
-//    [Header("========= CONFIG BOX ===========")]
-//    public bool isNotStack;
-//    public bool isPopup;
-//    [SerializeField] protected bool isAnim = true;
-//    protected Canvas popupCanvas;
-//    protected CanvasGroup canvasGroupPanel;
-//    [HideInInspector] public bool isBoxSave;a
+    [Header("========= CONFIG BOX ===========")]
+    public bool isNotStack;
+    public bool isPopup;
+    [SerializeField] protected bool isAnim = true;
+    protected Canvas popupCanvas;
+    protected CanvasGroup canvasGroupPanel;
+    [HideInInspector] public bool isBoxSave;
 
-//    public int IDLayerPopup { get; set; }
+    public int IDLayerPopup { get; set; }
 
-//    protected string iDPopup;
-//    protected string GetIDPopup()
-//    {
-//        return iDPopup;
-//    }
-//    protected virtual void SetIDPopup()
-//    {
-//        iDPopup = GetType().ToString();
-//    }
+    protected string iDPopup;
+    protected string GetIDPopup()
+    {
+        return iDPopup;
+    }
+    protected virtual void SetIDPopup()
+    {
+        iDPopup = GetType().ToString();
+    }
 
-//    //Call Back
-//    public Action OnCloseBox;
-//    public Action<int> OnChangeLayer;
-//    protected Action actionOpenSaveBox;
-
-
-//    /// <summary>
-//    /// Call back khi đây là Box đang được hiển thị (có layer cao nhất)
-//    /// </summary>
-//    public Action OnThisIsCurrent;
-
-//    public virtual T SetupBase<T>(bool isSaveBox = false, Action actionOpenBoxSave = null) where T : BaseBox
-//    {
-//        InitBoxSave(isSaveBox, actionOpenBoxSave);
-//        return null;
-//    }
+    //Call Back
+    public Action OnCloseBox;
+    public Action<int> OnChangeLayer;
+    protected Action actionOpenSaveBox;
 
 
-//    private void Awake()
-//    {
-//        popupCanvas = GetComponent<Canvas>();
-//        if (popupCanvas != null && isPopup)
-//        {
-//            popupCanvas.renderMode = RenderMode.ScreenSpaceCamera;
-//            popupCanvas.worldCamera = Camera.main;
-//            popupCanvas.sortingLayerID = SortingLayer.NameToID("Popup");
-//        }
+    /// <summary>
+    /// Call back khi đây là Box đang được hiển thị (có layer cao nhất)
+    /// </summary>
+    public Action OnThisIsCurrent;
 
-//        if (mainPanel != null)
-//        {
-//            var tweenAnimation = mainPanel.GetComponent<DOTweenAnimation>();
-//            if (tweenAnimation != null)
-//            {
-//                tweenAnimation.isIndependentUpdate = true;//Không phục thuộc vào time scale
-//                isAnim = false;
-//            }
-//        }
+    public virtual T SetupBase<T>(bool isSaveBox = false, Action actionOpenBoxSave = null) where T : BaseBox
+    {
+        InitBoxSave(isSaveBox, actionOpenBoxSave);
+        return null;
+    }
 
-//        OnAwake();
-//    }
 
-//    protected virtual void OnAwake()
-//    {
+    private void Awake()
+    {
+        popupCanvas = GetComponent<Canvas>();
+        if (popupCanvas != null && isPopup)
+        {
+            popupCanvas.renderMode = RenderMode.ScreenSpaceCamera;
+            popupCanvas.worldCamera = Camera.main;
+            popupCanvas.sortingLayerID = SortingLayer.NameToID("Popup");
+        }
 
-//    }
+        //if (mainPanel != null)
+        //{
+        //    var tweenAnimation = mainPanel.GetComponent<DOTweenAnimation>();
+        //    if (tweenAnimation != null)
+        //    {
+        //        tweenAnimation.isIndependentUpdate = true;//Không phục thuộc vào time scale
+        //        isAnim = false;
+        //    }
+        //}
 
-//    public void InitBoxSave(bool isBoxSave, Action actionOpenSaveBox)
-//    {
-//        this.isBoxSave = isBoxSave;
-//        this.actionOpenSaveBox = actionOpenSaveBox;
-//    }
+        OnAwake();
+    }
 
-//    #region Init Open Handle 
-//    protected virtual void OnEnable()
-//    {
-//        if (!isNotStack)
-//        {
-//            BoxController.Instance.AddNewBackObj(this);
-//        }
-//        SetIDPopup();
-//        DoAppear();
-//        OnStart();
-//    }
+    protected virtual void OnAwake()
+    {
 
-//    protected virtual void DoAppear()
-//    {
-//        if (isAnim)
-//        {
-//            if (mainPanel != null)
-//            {
-//                mainPanel.localScale = Vector3.zero;
-//                mainPanel.DOScale(1, 0.2f).SetUpdate(true).SetEase(Ease.OutBack);
-//            }
-//        }
-//    }
+    }
 
-//    protected virtual void OnStart()
-//    {
+    public void InitBoxSave(bool isBoxSave, Action actionOpenSaveBox)
+    {
+        this.isBoxSave = isBoxSave;
+        this.actionOpenSaveBox = actionOpenSaveBox;
+    }
 
-//    }
-//    #endregion
+    #region Init Open Handle 
+    protected virtual void OnEnable()
+    {
+        if (!isNotStack)
+        {
+            BoxController.Instance.AddNewBackObj(this);
+        }
+        SetIDPopup();
+        DoAppear();
+        OnStart();
+    }
 
-//    public virtual void Show()
-//    {
-//        gameObject.SetActive(true);
-//    }
+    protected virtual void DoAppear()
+    {
+        if (isAnim)
+        {
+            if (mainPanel != null)
+            {
+                mainPanel.localScale = Vector3.zero;
+                mainPanel.DOScale(1, 0.2f).SetUpdate(true).SetEase(Ease.OutBack);
+            }
+        }
+    }
 
-//    /// <summary>
-//    /// Đưa popup vào trong Stack save
-//    /// </summary>
-//    public virtual void SaveBox()
-//    {
-//        if (isBoxSave)
-//            BoxController.Instance.AddBoxSave(GetIDPopup(), actionOpenSaveBox);
-//    }
+    protected virtual void OnStart()
+    {
 
-//    /// <summary>
-//    /// Chủ động gọi Remove Save Box theo trường hợp cụ thể
-//    /// </summary>
-//    public virtual void RemoveSaveBox()
-//    {
-//        BoxController.Instance.RemoveBoxSave(GetIDPopup());
-//    }
+    }
+    #endregion
 
-//    #region Close Box
-//    public virtual void Close()
-//    {
-//        if (!isNotStack)
-//            BoxController.Instance.Remove(this);
-//        DoClose();
-//    }
+    public virtual void Show()
+    {
+        gameObject.SetActive(true);
+    }
 
-//    protected virtual void DoClose()
-//    {
-//        gameObject.SetActive(false);
-//    }
+    /// <summary>
+    /// Đưa popup vào trong Stack save
+    /// </summary>
+    public virtual void SaveBox()
+    {
+        if (isBoxSave)
+            BoxController.Instance.AddBoxSave(GetIDPopup(), actionOpenSaveBox);
+    }
 
-//    protected virtual void OnDisable()
-//    {
-//        if (OnCloseBox != null)
-//        {
-//            OnCloseBox();
-//            OnCloseBox = null;
-//        }
+    /// <summary>
+    /// Chủ động gọi Remove Save Box theo trường hợp cụ thể
+    /// </summary>
+    public virtual void RemoveSaveBox()
+    {
+        BoxController.Instance.RemoveBoxSave(GetIDPopup());
+    }
 
-//        BoxController.Instance.OnActionOnClosedOneBox();
-//    }
+    #region Close Box
+    public virtual void Close()
+    {
+        if (!isNotStack)
+            BoxController.Instance.Remove(this);
+        DoClose();
+    }
 
-//    protected void DestroyBox()
-//    {
-//        if (OnCloseBox != null)
-//            OnCloseBox();
-//        Destroy(gameObject);
-//    }
-//    #endregion
+    protected virtual void DoClose()
+    {
+        if (mainPanel != null)
+        {
+            mainPanel.localScale = Vector3.one;
+            mainPanel.DOScale(0, 0.2f).SetUpdate(true).SetEase(Ease.InBack)
+                .OnComplete(() =>
+                {
+                    gameObject.SetActive(false); // origin code
+                });
+        }
+        //gameObject.SetActive(false);
+    }
 
-//    #region Change layer Box
-//    public void ChangeLayerHandle(int indexInStack)
-//    {
-//        if (isPopup)
-//        {
-//            if (popupCanvas != null)
-//            {
-//                popupCanvas.sortingOrder = indexInStack;
-//                popupCanvas.planeDistance = 5;
+    protected virtual void OnDisable()
+    {
+        if (OnCloseBox != null)
+        {
+            OnCloseBox();
+            OnCloseBox = null;
+        }
 
-//                OnChangeLayer?.Invoke(indexInStack);
+        BoxController.Instance.OnActionOnClosedOneBox();
+    }
 
-//                IDLayerPopup = indexInStack;
-//            }
-//        }
-//        else
-//        {
-//            if (contentPanel != null)
-//                transform.SetAsLastSibling();
-//        }
-//    }
-//    #endregion
+    protected void DestroyBox()
+    {
+        if (OnCloseBox != null)
+            OnCloseBox();
+        Destroy(gameObject);
+    }
+    #endregion
 
-//    public virtual bool IsActive()
-//    {
-//        return true;
-//    }
-//}
+    #region Change layer Box
+    public void ChangeLayerHandle(int indexInStack)
+    {
+        if (isPopup)
+        {
+            if (popupCanvas != null)
+            {
+                popupCanvas.sortingOrder = indexInStack;
+                popupCanvas.planeDistance = 5;
+
+                OnChangeLayer?.Invoke(indexInStack);
+
+                IDLayerPopup = indexInStack;
+            }
+        }
+        else
+        {
+            //if (contentPanel != null)
+            //    transform.SetAsLastSibling();
+        }
+    }
+    #endregion
+
+    public virtual bool IsActive()
+    {
+        return true;
+    }
+}

@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: b141ec5725107f54a803b5e58742edfa
   m_currentHash:
     serializedVersion: 2
-    Hash: d3ba70b0d66c10af06cbf51b6046bc86
+    Hash: 057062218be2691a5053e953b735e6e5
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 0
   m_BundleLocalCatalog: 0
@@ -93,6 +93,7 @@ MonoBehaviour:
     - stripCandy
     - bombCandy
     - rainbowCandy
+    - spriteCandy
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: b86afdb8677e9f445bf6b6f86ed66788, type: 2}

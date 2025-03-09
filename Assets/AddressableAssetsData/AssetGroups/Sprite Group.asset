@@ -90,12 +90,14 @@ MonoBehaviour:
   - m_GUID: 9bf1493d3445f72438c1d90632afb8d4
     m_Address: Candy Item/Sprite/Violet
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - spriteCandy
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a1e522549d4bb5346ba4f85f3c22b6d6
     m_Address: Candy Item/Sprite/Blue
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - spriteCandy
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a8acdf644e44fdc43a86228210476643
     m_Address: Candy Item/Sprite/item_04_stripes_horiz 1
@@ -110,17 +112,20 @@ MonoBehaviour:
   - m_GUID: c90e584562fcbc94cb7b6eb35d48285e
     m_Address: Candy Item/Sprite/Yellow
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - spriteCandy
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d35e3d9739a7bf742bae1d1649859a19
     m_Address: Candy Item/Sprite/Green
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - spriteCandy
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: db36710656afaa64980122f8e0de963c
     m_Address: Candy Item/Sprite/Red
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - spriteCandy
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: decc6e040095c96469efd5eed3816941
     m_Address: Candy Item/Sprite/item_05_extra 1

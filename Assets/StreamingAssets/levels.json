@@ -1,0 +1,28 @@
+{
+  "levels": [
+    {
+      "level": 1,
+      "stars": [
+        true,
+        false,
+        false
+      ],
+      "targets": {
+        "Violet": 30,
+        "Red": 25
+      }
+    },
+    {
+      "level": 2,
+      "stars": [
+        false,
+        false,
+        false
+      ],
+      "targets": {
+        "Blue": 20,
+        "Green": 15
+      }
+    }
+  ]
+}

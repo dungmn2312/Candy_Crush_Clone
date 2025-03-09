@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
 
     internal string mainMenuScene = "Assets/Scenes/MainMenu.unity";
 
+    internal int currentLevel;
+
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -32,10 +34,17 @@ public class GameManager : MonoBehaviour
         LoadScene(mainMenuScene);
     }
 
-    public void LoadScene(string sceneName)
+    public async void LoadScene(string sceneName)
     {
-        AddressableController.Instance.LoadSceneByName(sceneName, true);
+        Transition.LoadingInEffect();
+        await UniTask.WaitForSeconds(1f);
+        AddressableController.Instance.LoadSceneByName(sceneName, true, (scene) =>
+        {
+            //await UniTask.WaitForSeconds(1f);
+            Transition.LoadingOutEffect();
+        });
     }
+
 
     public void LoadAsset(string assetName)
     {
